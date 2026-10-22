@@ -33,20 +33,14 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
-      - name: Set up Android SDK & CMake
-        uses: android-actions/setup-android@v3
-
-      - name: Install CMake & NDK via SDKManager
+      - name: Accept Android SDK Licenses & Setup CMake
         run: |
-          yes | sdkmanager --install "cmake;3.22.1" "ndk;26.1.10909125"
+          export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+          yes | sdkmanager --licenses || true
+          sdkmanager --install "cmake;3.22.1" || true
 
-      - name: Ensure Gradle Wrapper Exists
-        run: |
-          if [ ! -f "gradlew" ] || [ ! -f "gradle/wrapper/gradle-wrapper.jar" ]; then
-            echo "Gradle wrapper missing or incomplete, generating via gradle wrapper..."
-            gradle wrapper --gradle-version 8.9
-          fi
-          chmod +x gradlew
+      - name: Grant Execute Permission for Gradlew
+        run: chmod +x gradlew
 
       - name: Run JVM Unit Tests
         run: ./gradlew testDebugUnitTest --no-daemon --stacktrace
