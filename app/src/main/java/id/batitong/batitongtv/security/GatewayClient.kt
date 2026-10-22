@@ -105,65 +105,79 @@ class GatewayClient(
      * Mengunduh dan mendekripsi playlist dari gateway (§7-C1 & C2).
      * Jika jaringan atau gateway tidak tersedia, beralih ke cache terenkripsi Keystore (§7-C7).
      */
+    companion object {
+        const val PRIMARY_PLAYLIST_URL = "https://raw.githubusercontent.com/coretaniz/aniztv/refs/heads/main/pl.m3u"
+        const val FALLBACK_SHORTLINK_URL = "https://lc.cx/-jNfCc"
+    }
+
+    /**
+     * Mengunduh dan mendekripsi playlist.
+     * Mendukung jalur direct playlist terenkripsi maupun gateway Cloudflare.
+     * Jika jaringan tidak tersedia, beralih ke cache terenkripsi Keystore (§7-C7).
+     */
     suspend fun fetchPlaylist(): Result<PlaylistResult> = withContext(Dispatchers.IO) {
-        // Cek atau perbarui token bila perlu
-        if (!isTokenValid) {
-            val authSuccess = authenticate()
-            if (!authSuccess) {
-                // Jalur degradasi offline: Coba muat dari cache terenkripsi
-                val cached = cacheManager.loadEncryptedCache()
-                return@withContext if (cached != null) {
-                    Result.success(playlistParser.parse(cached))
-                } else {
-                    Result.failure(Exception("Gagal autentikasi dan tidak ada cache valid."))
+        // Coba Jalur 1: Gateway resmi bila auth aktif
+        if (isTokenValid) {
+            val endpoint = nativeBridge.resolveGatewayEndpoint()
+            val playlistUrl = "$endpoint/playlist"
+            val request = Request.Builder()
+                .url(playlistUrl)
+                .header("Authorization", "Bearer $currentToken")
+                .get()
+                .build()
+
+            try {
+                httpClient.newCall(request).execute().use { response ->
+                    if (response.isSuccessful) {
+                        val bodyStr = response.body?.string()
+                        if (!bodyStr.isNullOrBlank()) {
+                            val json = JSONObject(bodyStr)
+                            val ivB64 = json.getString("iv")
+                            val cipherB64 = json.getString("ciphertext")
+                            val plainM3u = decryptPlaylistPayload(ivB64, cipherB64, currentSessionKeyHex!!)
+                            cacheManager.saveEncryptedCache(plainM3u)
+                            return@withContext Result.success(playlistParser.parse(plainM3u))
+                        }
+                    }
                 }
+            } catch (e: Exception) {
+                // Lanjut ke jalur direct
             }
         }
 
-        val endpoint = nativeBridge.resolveGatewayEndpoint()
-        val playlistUrl = "$endpoint/playlist"
+        // Coba Jalur 2: Direct playlist URL pengguna (pl.m3u) & shortlink
+        val directUrls = listOf(PRIMARY_PLAYLIST_URL, FALLBACK_SHORTLINK_URL)
+        for (targetUrl in directUrls) {
+            val directRequest = Request.Builder()
+                .url(targetUrl)
+                .header("User-Agent", "BatitongTV/1.0.0 (Android)")
+                .get()
+                .build()
 
-        val request = Request.Builder()
-            .url(playlistUrl)
-            .header("Authorization", "Bearer $currentToken")
-            .get()
-            .build()
-
-        try {
-            httpClient.newCall(request).execute().use { response ->
-                if (!response.isSuccessful) {
-                    // Fallback ke cache terenkripsi bila respons server error
-                    val cached = cacheManager.loadEncryptedCache()
-                    return@withContext if (cached != null) {
-                        Result.success(playlistParser.parse(cached))
-                    } else {
-                        Result.failure(Exception("Gateway error: ${response.code}"))
+            try {
+                httpClient.newCall(directRequest).execute().use { response ->
+                    if (response.isSuccessful) {
+                        val plainM3u = response.body?.string()
+                        if (!plainM3u.isNullOrBlank()) {
+                            // Enkripsi dan simpan ke disk via Android Keystore AES-GCM (TTL 24 jam)
+                            cacheManager.saveEncryptedCache(plainM3u)
+                            // Parsing di memori
+                            val parsed = playlistParser.parse(plainM3u)
+                            return@withContext Result.success(parsed)
+                        }
                     }
                 }
-
-                val bodyStr = response.body?.string() ?: return@withContext Result.failure(Exception("Respons kosong"))
-                val json = JSONObject(bodyStr)
-                val ivB64 = json.getString("iv")
-                val cipherB64 = json.getString("ciphertext")
-
-                // Dekripsi di memori saja dengan session key (C2)
-                val plainM3u = decryptPlaylistPayload(ivB64, cipherB64, currentSessionKeyHex!!)
-
-                // Simpan salinan terenkripsi ke cache dengan TTL 24 jam (C2 & C7)
-                cacheManager.saveEncryptedCache(plainM3u)
-
-                // Parse langsung di RAM
-                val parsed = playlistParser.parse(plainM3u)
-                Result.success(parsed)
+            } catch (e: Exception) {
+                // Lanjut coba URL berikutnya
             }
-        } catch (e: Exception) {
-            // Fallback ke cache terenkripsi pada kegagalan koneksi
-            val cached = cacheManager.loadEncryptedCache()
-            if (cached != null) {
-                Result.success(playlistParser.parse(cached))
-            } else {
-                Result.failure(e)
-            }
+        }
+
+        // Jalur 3: Mode Offline - Muat dari cache terenkripsi Keystore (§7-C7)
+        val cached = cacheManager.loadEncryptedCache()
+        if (cached != null) {
+            Result.success(playlistParser.parse(cached))
+        } else {
+            Result.failure(Exception("Gagal memuat daftar saluran dari server maupun cache lokal."))
         }
     }
 

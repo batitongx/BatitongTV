@@ -10,6 +10,7 @@
 // Pada produksi Cloudflare, nilai-nilai ini diatur melalui Workers Secrets (wrangler secret put)
 const GATEWAY_SECRET = globalThis.GATEWAY_SECRET || "batitong_master_hmac_secret_key_32bytes_min!";
 const OFFICIAL_CERT_SHA256 = globalThis.OFFICIAL_CERT_SHA256 || "C8F5B891E60E8E1375B8933224B27DF8A1C50C3A5A3919420042D3B8EF6C48B2";
+const UPSTREAM_PLAYLIST_URL = globalThis.UPSTREAM_PLAYLIST_URL || "https://raw.githubusercontent.com/coretaniz/aniztv/refs/heads/main/pl.m3u";
 const UPSTREAM_SHORTLINK = globalThis.UPSTREAM_SHORTLINK || "https://lc.cx/-jNfCc";
 
 // Rate limiting & Session In-Memory Cache (pada edge worker)
@@ -261,15 +262,22 @@ async function handlePlaylist(request, env) {
     return new Response(JSON.stringify({ error: "Max downloads reached for this session" }), { status: 429 });
   }
 
-  // Resolusi shortlink server-side (URL asli tidak dikirim ke klien §7-C1)
-  const targetShortlink = (env && env.UPSTREAM_SHORTLINK) || UPSTREAM_SHORTLINK;
+  // Resolusi playlist server-side (URL asli tidak dikirim ke klien §7-C1)
+  const primaryUrl = (env && env.UPSTREAM_PLAYLIST_URL) || UPSTREAM_PLAYLIST_URL;
+  const fallbackUrl = (env && env.UPSTREAM_SHORTLINK) || UPSTREAM_SHORTLINK;
   let rawPlaylistText = "";
 
   try {
-    const upstreamRes = await fetch(targetShortlink, {
+    let upstreamRes = await fetch(primaryUrl, {
       redirect: "follow",
       headers: { "User-Agent": "BatitongTV-Gateway/1.0" }
     });
+    if (!upstreamRes.ok) {
+      upstreamRes = await fetch(fallbackUrl, {
+        redirect: "follow",
+        headers: { "User-Agent": "BatitongTV-Gateway/1.0" }
+      });
+    }
     if (!upstreamRes.ok) {
       throw new Error(`Upstream returned ${upstreamRes.status}`);
     }
