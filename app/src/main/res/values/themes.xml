@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema Utama Material 3 Dark BatitongTV untuk Android TV -->
+    <style name="Theme.BatitongTV" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Palet Warna Dasar -->
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorPrimaryVariant">@color/brand_primary_variant</item>
+        <item name="colorSecondary">@color/brand_secondary</item>
+        <item name="android:colorBackground">@color/tv_bg_dark</item>
+        <item name="android:windowBackground">@color/tv_bg_dark</item>
+
+        <!-- Tipografi & Teks -->
+        <item name="android:textColorPrimary">@color/tv_text_primary</item>
+        <item name="android:textColorSecondary">@color/tv_text_secondary</item>
+
+        <!-- Android TV Window Properties -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <!-- Focus & Highlight Default -->
+        <item name="colorControlHighlight">@color/tv_focus_glow</item>
+        <item name="android:alertDialogTheme">@style/Theme.BatitongTV.Dialog</item>
+    </style>
+
+    <!-- Dialog Material 3 Dark untuk Pengaturan & Track Selector -->
+    <style name="Theme.BatitongTV.Dialog" parent="ThemeOverlay.Material3.Dialog">
+        <item name="android:background">@color/tv_surface</item>
+        <item name="colorSurface">@color/tv_surface</item>
+        <item name="android:textColorPrimary">@color/tv_text_primary</item>
+        <item name="android:textColorSecondary">@color/tv_text_secondary</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.BatitongTV.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.BatitongTV.Button</item>
+    </style>
+
+    <!-- Tombol Khusus TV dengan Focus State Jelas -->
+    <style name="Widget.BatitongTV.Button" parent="Widget.Material3.Button">
+        <item name="android:textColor">@color/tv_text_primary</item>
+        <item name="backgroundTint">@color/tv_surface_variant</item>
+        <item name="strokeColor">@color/tv_focus_stroke</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+</resources>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+    <!-- Latar Belakang Gradasi Gelap -->
+    <path
+        android:fillColor="#0B0F19"
+        android:pathData="M0,0h320v180h-320z" />
+    <path
+        android:fillColor="#131B2E"
+        android:pathData="M0,0 L320,0 L320,120 L0,180 Z" />
+
+    <!-- Aksen Garis Modern Hijau Emerald & Biru Langit -->
+    <path
+        android:strokeColor="#00D285"
+        android:strokeWidth="4"
+        android:pathData="M0,176 L320,176" />
+
+    <!-- TV Frame Icon -->
+    <path
+        android:strokeColor="#00D285"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M60,40 L80,55 L100,40" />
+    <path
+        android:fillColor="#1E293B"
+        android:strokeColor="#00E599"
+        android:strokeWidth="3"
+        android:pathData="M40,55 h80 a6,6 0 0,1 6,6 v50 a6,6 0 0,1 -6,6 h-80 a6,6 0 0,1 -6,-6 v-50 a6,6 0 0,1 6,-6 z" />
+    <!-- Play Glyph -->
+    <path
+        android:fillColor="#00D285"
+        android:pathData="M73,70 L93,80 L73,90 Z" />
+
+    <!-- BatitongTV Banner Typography Motif -->
+    <!-- B -->
+    <path
+        android:fillColor="#F8FAFC"
+        android:pathData="M150,65 h18 c6,0 10,3 10,8 c0,3 -2,6 -5,7 c4,1 7,5 7,9 c0,6 -5,9 -12,9 h-18 z M158,72 v8 h9 c2,0 4,-1 4,-4 c0,-3 -2,-4 -4,-4 z M158,86 v9 h10 c2,0 5,-1 5,-4 c0,-4 -3,-5 -5,-5 z" />
+    <!-- TV Badge -->
+    <path
+        android:fillColor="#00D285"
+        android:pathData="M230,68 h46 a4,4 0 0,1 4,4 v24 a4,4 0 0,1 -4,4 h-46 a4,4 0 0,1 -4,-4 v-24 a4,4 0 0,1 4,-4 z" />
+    <!-- TV Letters inside badge -->
+    <path
+        android:fillColor="#0B0F19"
+        android:pathData="M238,74 h14 v4 h-5 v12 h-4 v-12 h-5 z M255,74 h4 l4,11 l4,-11 h4 l-6,16 h-4 z" />
+</vector>

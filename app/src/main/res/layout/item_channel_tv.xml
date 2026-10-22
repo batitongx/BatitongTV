@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardChannelContainer"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tv_channel_item_height"
+    android:layout_marginBottom="6dp"
+    android:background="@drawable/selector_item_tv"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp">
+
+    <!-- Logo Saluran -->
+    <ImageView
+        android:id="@+id/ivChannelLogo"
+        android:layout_width="@dimen/tv_channel_logo_size"
+        android:layout_height="@dimen/tv_channel_logo_size"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_channel_placeholder" />
+
+    <!-- Info Teks Saluran -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvChannelTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Nama Saluran TV"
+            android:textColor="@color/tv_text_primary"
+            android:textSize="@dimen/tv_text_subtitle"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvChannelSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Kategori"
+            android:textColor="@color/tv_text_secondary"
+            android:textSize="@dimen/tv_text_caption" />
+    </LinearLayout>
+
+    <!-- Badge DRM / HD -->
+    <TextView
+        android:id="@+id/tvDrmBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_badge_tag"
+        android:text="DRM"
+        android:textColor="@color/brand_accent"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <!-- Ikon Bintang Favorit -->
+    <ImageView
+        android:id="@+id/ivFavoriteIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contentDescription="@string/category_favorites"
+        android:src="@drawable/ic_star_filled"
+        android:visibility="gone" />
+
+</LinearLayout>

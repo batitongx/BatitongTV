@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused and selected -->
+    <item android:state_focused="true" android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/tv_surface_focused" />
+            <corners android:radius="@dimen/tv_corner_radius_sm" />
+            <stroke android:width="@dimen/tv_focus_stroke_width" android:color="@color/tv_focus_stroke" />
+        </shape>
+    </item>
+    <!-- Focused only -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/tv_surface_focused" />
+            <corners android:radius="@dimen/tv_corner_radius_sm" />
+            <stroke android:width="@dimen/tv_focus_stroke_width" android:color="@color/tv_focus_stroke" />
+        </shape>
+    </item>
+    <!-- Selected only (Active category) -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/tv_surface_elevated" />
+            <corners android:radius="@dimen/tv_corner_radius_sm" />
+            <stroke android:width="1.5dp" android:color="@color/tv_selected_stroke" />
+        </shape>
+    </item>
+    <!-- Normal state -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/transparent" />
+            <corners android:radius="@dimen/tv_corner_radius_sm" />
+        </shape>
+    </item>
+</selector>

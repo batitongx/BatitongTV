@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tv_bg_dark">
+
+    <!-- LAYER 1: Fullscreen Media3 Player & OSD -->
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:use_controller="false" />
+
+    <!-- OSD Overlay Pemutar -->
+    <include
+        android:id="@+id/viewPlayerOsd"
+        layout="@layout/view_player_osd"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- LAYER 2: Navigasi 3-Panel TV Modern (Kategori + Daftar Saluran + Info/Preview) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMainThreePanel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/tv_bg_dark"
+        android:paddingStart="@dimen/tv_overscan_horizontal"
+        android:paddingTop="@dimen/tv_overscan_vertical"
+        android:paddingEnd="@dimen/tv_overscan_horizontal"
+        android:paddingBottom="@dimen/tv_overscan_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Banner Mode Offline Bila Aktif -->
+        <TextView
+            android:id="@+id/tvOfflineBanner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_badge_tag"
+            android:backgroundTint="@color/tv_surface_variant"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="@string/status_offline_mode"
+            android:textColor="@color/brand_secondary"
+            android:textSize="@dimen/tv_text_caption"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- ============================================================= -->
+        <!-- PANEL KIRI: Header BatitongTV + Tombol Pencarian & Kategori   -->
+        <!-- ============================================================= -->
+        <LinearLayout
+            android:id="@+id/panelCategoryLeft"
+            android:layout_width="@dimen/tv_panel_category_width"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvOfflineBanner">
+
+            <!-- Logo & Brand Header -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textColor="@color/brand_primary"
+                    android:textSize="@dimen/tv_text_title"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Tombol Pencarian & Pengaturan Cepat TV -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnQuickSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_item_tv"
+                    android:contentDescription="@string/nav_search"
+                    android:focusable="true"
+                    android:src="@drawable/ic_search" />
+
+                <ImageButton
+                    android:id="@+id/btnQuickSettings"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_item_tv"
+                    android:contentDescription="@string/nav_settings"
+                    android:focusable="true"
+                    android:src="@drawable/ic_settings" />
+            </LinearLayout>
+
+            <!-- Daftar Kategori Saluran -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategories"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:focusable="true"
+                android:nextFocusRight="@id/rvChannels" />
+        </LinearLayout>
+
+        <!-- ============================================================= -->
+        <!-- PANEL TENGAH: Header Grup & Grid/List Saluran                -->
+        <!-- ============================================================= -->
+        <LinearLayout
+            android:id="@+id/panelChannelCenter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/panelInfoRight"
+            app:layout_constraintStart_toEndOf="@id/panelCategoryLeft"
+            app:layout_constraintTop_toBottomOf="@id/tvOfflineBanner">
+
+            <!-- Header Judul Kategori & Hitungan Saluran -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvActiveCategoryTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Semua Saluran"
+                    android:textColor="@color/tv_text_primary"
+                    android:textSize="@dimen/tv_text_title"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvChannelCountBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_tag"
+                    android:text="0 Saluran"
+                    android:textColor="@color/tv_text_secondary"
+                    android:textSize="@dimen/tv_text_caption" />
+            </LinearLayout>
+
+            <!-- RecyclerView Saluran -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChannels"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:focusable="true"
+                android:nextFocusLeft="@id/rvCategories"
+                android:nextFocusRight="@id/btnPlaySelectedChannel" />
+        </LinearLayout>
+
+        <!-- ============================================================= -->
+        <!-- PANEL KANAN: Info & Preview Saluran Terpilih                 -->
+        <!-- ============================================================= -->
+        <LinearLayout
+            android:id="@+id/panelInfoRight"
+            android:layout_width="@dimen/tv_panel_info_width"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_card_tv"
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvOfflineBanner">
+
+            <!-- Logo Preview Besar -->
+            <ImageView
+                android:id="@+id/ivPreviewLogo"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_channel_placeholder" />
+
+            <!-- Nama Saluran Terpilih -->
+            <TextView
+                android:id="@+id/tvPreviewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:gravity="center"
+                android:text="@string/channel_no_selection"
+                android:textColor="@color/tv_text_primary"
+                android:textSize="@dimen/tv_text_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvPreviewCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:text="Kategori"
+                android:textColor="@color/tv_text_secondary"
+                android:textSize="@dimen/tv_text_subtitle" />
+
+            <!-- Informasi Tag & Keamanan Saluran -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvPreviewFormatTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_badge_tag"
+                    android:text="HLS"
+                    android:textColor="@color/brand_secondary"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvPreviewDrmTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_tag"
+                    android:text="DRM PROTECTED"
+                    android:textColor="@color/brand_accent"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="#1AFFFFFF" />
+
+            <!-- Tombol Aksi Langsung Putar Saluran -->
+            <Button
+                android:id="@+id/btnPlaySelectedChannel"
+                style="@style/Widget.BatitongTV.Button"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/selector_item_tv"
+                android:focusable="true"
+                android:nextFocusLeft="@id/rvChannels"
+                android:text="@string/channel_press_ok_to_play"
+                android:textSize="@dimen/tv_text_subtitle" />
+
+            <!-- Petunjuk D-Pad Favorit -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/channel_hold_ok_to_fav"
+                android:textColor="@color/tv_text_tertiary"
+                android:textSize="@dimen/tv_text_caption" />
+        </LinearLayout>
+
+        <!-- Loading Spinner Status -->
+        <ProgressBar
+            android:id="@+id/progressBarLoading"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:indeterminateTint="@color/brand_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvLoadingStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/status_loading_playlist"
+            android:textColor="@color/tv_text_secondary"
+            android:textSize="@dimen/tv_text_subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressBarLoading" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

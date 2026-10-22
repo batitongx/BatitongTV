@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Palet Material 3 Dark BatitongTV -->
+    <color name="brand_primary">#00D285</color>
+    <color name="brand_primary_variant">#00A868</color>
+    <color name="brand_secondary">#38BDF8</color>
+    <color name="brand_accent">#00E599</color>
+
+    <color name="tv_bg_dark">#0B0F19</color>
+    <color name="tv_surface">#131B2E</color>
+    <color name="tv_surface_variant">#1E293B</color>
+    <color name="tv_surface_elevated">#26354D</color>
+    <color name="tv_surface_focused">#2A3C59</color>
+
+    <color name="tv_text_primary">#F8FAFC</color>
+    <color name="tv_text_secondary">#94A3B8</color>
+    <color name="tv_text_tertiary">#64748B</color>
+
+    <color name="tv_focus_stroke">#00E599</color>
+    <color name="tv_focus_glow">#4000E599</color>
+    <color name="tv_selected_stroke">#38BDF8</color>
+
+    <color name="tv_status_error">#EF4444</color>
+    <color name="tv_status_warning">#F59E0B</color>
+    <color name="tv_status_success">#10B981</color>
+    <color name="tv_status_offline">#64748B</color>
+
+    <color name="tv_osd_scrim_top">#B3050811</color>
+    <color name="tv_osd_scrim_bottom">#CC050811</color>
+    <color name="tv_overlay_barrier">#E60B0F19</color>
+    <color name="transparent">#00000000</color>
+</resources>

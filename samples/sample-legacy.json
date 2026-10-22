@@ -1,0 +1,64 @@
+{
+  "categories": [
+    {
+      "name": "Nasional",
+      "channels": [
+        {
+          "name": "TVRI Nasional",
+          "stream_url": "https://edge.batitong.tv/live/tvri/index.m3u8",
+          "logo_url": "https://cdn.batitong.tv/logos/tvri.png",
+          "tvg_id": "tvri_nasional",
+          "tvg_name": "TVRI",
+          "user_agent": "BatitongTV/1.0",
+          "referer": "https://batitong.tv"
+        },
+        {
+          "name": "TVRI Nasional",
+          "stream_url": "https://edge.batitong.tv/live/tvri_backup/index.m3u8",
+          "logo_url": "https://cdn.batitong.tv/logos/tvri.png",
+          "tvg_id": "tvri_backup",
+          "user_agent": "BatitongTV/1.0"
+        }
+      ]
+    },
+    {
+      "name": "Film & Hiburan",
+      "channels": [
+        {
+          "name": "HBO HD",
+          "stream_url": "https://edge.batitong.tv/live/hbo/manifest.mpd",
+          "logo_url": "https://cdn.batitong.tv/logos/hbo.png",
+          "tvg_id": "hbo_hd",
+          "drm_id": "lic_widevine_hbo",
+          "headers": {
+            "X-Subscription-Tier": "Premium",
+            "Authorization": "Bearer streamTokenHBO"
+          }
+        },
+        {
+          "name": "Cinemax",
+          "stream_url": "https://edge.batitong.tv/live/cinemax/manifest.mpd",
+          "logo_url": "https://cdn.batitong.tv/logos/cinemax.png",
+          "tvg_id": "cinemax_hd",
+          "drm_id": "lic_clearkey_cinemax"
+        }
+      ]
+    }
+  ],
+  "drm_licenses": [
+    {
+      "id": "lic_widevine_hbo",
+      "type": "com.widevine.alpha",
+      "url": "https://license.batitong.tv/widevine/proxy",
+      "headers": {
+        "User-Agent": "Media3ExoPlayer",
+        "X-Custom-Auth": "SecretWVToken"
+      }
+    },
+    {
+      "id": "lic_clearkey_cinemax",
+      "type": "org.w3.clearkey",
+      "key": "1234567890abcdef1234567890abcdef:abcdef1234567890abcdef1234567890"
+    }
+  ]
+}

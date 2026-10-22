@@ -1,0 +1,79 @@
+#EXTM3U
+# BatitongTV Master Test Suite M3U
+# Menutup celah G1 s/d G10 secara komprehensif
+
+# ==============================================================================
+# Kasus 1: G2 (#KODIPROP sebelum #EXTINF) + G8 (Widevine) + G7 (URL|Headers) + G4
+# ==============================================================================
+#KODIPROP:inputstream.adaptive.manifest_type=mpd
+#KODIPROP:inputstream.adaptive.license_type=com.widevine.alpha
+#KODIPROP:inputstream.adaptive.license_key=https://license.batitong.tv/wv|Authorization=Bearer%20token123&X-Device-Id=stb-999
+#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=BatitongExo%2F1.0&Referer=https%3A%2F%2Fstream.batitong.tv
+#EXTINF:-1 tvg-id="ch_widevine" tvg-name="Cinema Premier" tvg-logo="https://cdn.batitong.tv/logos/cinema.png" group-title="Hiburan" custom-tag="vip-access",Cinema Premier
+https://edge.batitong.tv/live/cinema/manifest.mpd
+
+# ==============================================================================
+# Kasus 2: G6 Anti-Bocor - Saluran B persis setelah Saluran A
+# HARUS BERSIH: Tidak boleh mewarisi lisensi Widevine atau header dari Saluran 1!
+# Menguji G4: Nama duplikat dalam grup yang sama -> Harus menjadi "Cinema Premier #1"
+# ==============================================================================
+#EXTINF:-1 tvg-id="ch_clean" tvg-logo="https://cdn.batitong.tv/logos/cinema2.png" group-title="Hiburan",Cinema Premier
+https://edge.batitong.tv/live/cinema_backup/playlist.m3u8
+
+# ==============================================================================
+# Kasus 3: G1 (#EXTHTTP JSON) + G3 (#EXTVLCOPT http-referer 1 r) + G5 (Prioritas Header)
+# Hierarki penggabungan: #EXTVLCOPT < #EXTHTTP < stream_headers < Pipe URL
+# ==============================================================================
+#EXTVLCOPT:http-user-agent=LowPriorityVlcAgent
+#EXTVLCOPT:http-referer=https://vlc-referer.com
+#EXTHTTP:{"User-Agent":"MediumPriorityHttpAgent","X-Auth-Token":"secret999","Referer":"https://http-referer.com"}
+#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=HighPriorityStreamHeader%201.0|X-Stream-Id=str-888
+#EXTINF:-1 tvg-id="ch_priority" group-title="Nasional",Saluran Berita Satu
+https://edge.batitong.tv/live/berita/index.m3u8|User-Agent=WinningPipeUserAgent&X-Final-Override=True
+
+# ==============================================================================
+# Kasus 4: G7 Varian (i) - ClearKey Multi-Key Hex (kid1:key1,kid2:key2)
+# ==============================================================================
+#KODIPROP:inputstream.adaptive.license_type=org.w3.clearkey
+#KODIPROP:inputstream.adaptive.license_key=10000000100010001000100000000001:20000000200020002000200000000002,30000000300030003000300000000003:40000000400040004000400000000004
+#EXTINF:-1 tvg-id="ch_clearkey_multi" group-title="Musik",Music Channel HD
+https://edge.batitong.tv/live/music/manifest.mpd
+
+# ==============================================================================
+# Kasus 5: G7 Varian (ii) - ClearKey Base64/Base64URL pasangan
+# ==============================================================================
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key=EAABAAECAwQFBgcICQoLDA:EQECAwQFBgcICQoLDA0ODw
+#EXTINF:-1 tvg-id="ch_clearkey_b64" group-title="Musik",Music Hits
+https://edge.batitong.tv/live/musichits/manifest.mpd
+
+# ==============================================================================
+# Kasus 6: G7 Varian (iii) - ClearKey Inline JSON JWK
+# ==============================================================================
+#KODIPROP:inputstream.adaptive.license_type=clearkey
+#KODIPROP:inputstream.adaptive.license_key={"keys":[{"kty":"oct","k":"MDEyMzQ1Njc4OWFiY2RlZg","kid":"MDEyMzQ1Njc4OWFiY2RlZg"}],"type":"temporary"}
+#EXTINF:-1 tvg-id="ch_jwk" group-title="Olahraga",Sports Plus
+https://edge.batitong.tv/live/sports/manifest.mpd
+
+# ==============================================================================
+# Kasus 7: G5 Dialek Pipe 1 (url|key=val|key2=val2) & #EXTGRP override
+# ==============================================================================
+#EXTGRP:Olahraga Premium
+#EXTINF:-1 tvg-id="ch_pipe_old",Fight Sports
+https://edge.batitong.tv/live/fight/index.m3u8|user-agent=OldPipeAgent|referer=https%3A%2F%2Ffight.com
+
+# ==============================================================================
+# Kasus 8: G5 stream_headers dialek DensTV dengan pemisah pipe (|)
+# Menguji G1 resilient: #EXTHTTP dengan JSON rusak tidak menggagalkan playlist
+# ==============================================================================
+#EXTHTTP: { "broken_json": "missing_quote }
+#KODIPROP:inputstream.adaptive.stream_headers=User-Agent=DensTV%20Box|Referer=https%3A%2F%2Fdenstv.com|X-Device-Type=STB
+#EXTINF:-1 tvg-id="ch_denstv" group-title="Internasional",World News Live
+https://edge.batitong.tv/live/worldnews/index.m3u8
+
+# ==============================================================================
+# Kasus 9: G4 Saluran tanpa nama (koma kosong) & tanpa grup
+# Menghasilkan nama "NO NAME" dan grup "UNCATEGORIZED"
+# ==============================================================================
+#EXTINF:-1
+https://edge.batitong.tv/live/unknown/stream.m3u8

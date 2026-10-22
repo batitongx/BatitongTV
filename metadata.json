@@ -1,0 +1,6 @@
+{
+  "name": "BatitongTV",
+  "description": "Aplikasi Android TV BatitongTV dengan Media3, playlist parser tangguh, dan sistem pengamanan playlist berbayar berlapis.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

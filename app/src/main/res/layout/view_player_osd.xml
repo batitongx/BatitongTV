@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/playerOsdRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+    <!-- Top Scrim Gradient & Channel Info -->
+    <View
+        android:id="@+id/viewTopScrim"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:background="@drawable/banner_tv"
+        android:backgroundTint="@color/tv_osd_scrim_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/osdChannelInfoContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/tv_overscan_horizontal"
+        android:layout_marginTop="@dimen/tv_overscan_vertical"
+        android:layout_marginEnd="@dimen/tv_overscan_horizontal"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/osdChannelLogo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_channel_placeholder" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/osdChannelTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cinema Premier HD"
+                android:textColor="@color/tv_text_primary"
+                android:textSize="@dimen/tv_text_title"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/osdCategoryTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Film &amp; Hiburan"
+                    android:textColor="@color/brand_secondary"
+                    android:textSize="@dimen/tv_text_caption" />
+
+                <TextView
+                    android:id="@+id/osdDrmTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_tag"
+                    android:text="DRM"
+                    android:textColor="@color/brand_accent"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Status Indikator Buffer / Live -->
+        <TextView
+            android:id="@+id/osdLiveBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_badge_tag"
+            android:backgroundTint="#EF4444"
+            android:text="LIVE"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Bottom Scrim Gradient & Player Control Bar -->
+    <View
+        android:id="@+id/viewBottomScrim"
+        android:layout_width="0dp"
+        android:layout_height="130dp"
+        android:background="@color/tv_osd_scrim_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/osdControlsContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/tv_osd_bar_height"
+        android:layout_marginBottom="@dimen/tv_overscan_vertical"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Channel Prev -->
+        <ImageButton
+            android:id="@+id/btnOsdPrevChannel"
+            android:layout_width="@dimen/tv_icon_btn_size"
+            android:layout_height="@dimen/tv_icon_btn_size"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/selector_item_tv"
+            android:contentDescription="@string/player_prev_channel"
+            android:focusable="true"
+            android:src="@drawable/ic_play" />
+
+        <!-- Play / Pause -->
+        <ImageButton
+            android:id="@+id/btnOsdPlayPause"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/selector_item_tv"
+            android:contentDescription="@string/player_play"
+            android:focusable="true"
+            android:src="@drawable/ic_pause" />
+
+        <!-- Channel Next -->
+        <ImageButton
+            android:id="@+id/btnOsdNextChannel"
+            android:layout_width="@dimen/tv_icon_btn_size"
+            android:layout_height="@dimen/tv_icon_btn_size"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/selector_item_tv"
+            android:contentDescription="@string/player_next_channel"
+            android:focusable="true"
+            android:src="@drawable/ic_play" />
+
+        <!-- Aspect Ratio (5 Resize Modes) -->
+        <ImageButton
+            android:id="@+id/btnOsdAspectRatio"
+            android:layout_width="@dimen/tv_icon_btn_size"
+            android:layout_height="@dimen/tv_icon_btn_size"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/selector_item_tv"
+            android:contentDescription="@string/player_aspect_ratio"
+            android:focusable="true"
+            android:src="@drawable/ic_aspect_ratio" />
+
+        <!-- Audio / Subtitle Track Selector -->
+        <ImageButton
+            android:id="@+id/btnOsdTrackSelector"
+            android:layout_width="@dimen/tv_icon_btn_size"
+            android:layout_height="@dimen/tv_icon_btn_size"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/selector_item_tv"
+            android:contentDescription="@string/player_audio_selector"
+            android:focusable="true"
+            android:src="@drawable/ic_settings" />
+
+        <!-- Picture in Picture -->
+        <ImageButton
+            android:id="@+id/btnOsdPip"
+            android:layout_width="@dimen/tv_icon_btn_size"
+            android:layout_height="@dimen/tv_icon_btn_size"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/selector_item_tv"
+            android:contentDescription="@string/player_pip"
+            android:focusable="true"
+            android:src="@drawable/ic_pip" />
+
+        <!-- Back to Channel Grid -->
+        <Button
+            android:id="@+id/btnOsdChannelList"
+            style="@style/Widget.BatitongTV.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/selector_item_tv"
+            android:focusable="true"
+            android:text="@string/nav_channels"
+            android:textSize="@dimen/tv_text_caption" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Identitas Aplikasi BatitongTV -->
+    <string name="app_name">BatitongTV</string>
+    <string name="app_tagline">Pemutar Siaran Televisi Modern &amp; Cerdas</string>
+
+    <!-- Kategori Khusus -->
+    <string name="category_favorites">Favorit</string>
+    <string name="category_all">Semua Saluran</string>
+    <string name="category_uncategorized">Lainnya</string>
+
+    <!-- UI Navigasi & Label -->
+    <string name="nav_channels">Saluran</string>
+    <string name="nav_search">Pencarian</string>
+    <string name="nav_settings">Pengaturan</string>
+    <string name="nav_licenses">Lisensi Open Source</string>
+
+    <!-- Info Panel Saluran -->
+    <string name="channel_no_selection">Pilih saluran untuk melihat informasi</string>
+    <string name="channel_press_ok_to_play">Tekan OK untuk memutar saluran ini</string>
+    <string name="channel_hold_ok_to_fav">Tahan OK untuk tambah/hapus favorit</string>
+    <string name="channel_resolution">Resolusi</string>
+    <string name="channel_audio_tracks">Trek Audio</string>
+    <string name="channel_subtitles">Teks Terjemahan</string>
+    <string name="channel_drm_protected">Dilindungi DRM</string>
+
+    <!-- Player Controls & OSD -->
+    <string name="player_play">Putar</string>
+    <string name="player_pause">Jeda</string>
+    <string name="player_next_channel">Saluran Berikutnya</string>
+    <string name="player_prev_channel">Saluran Sebelumnya</string>
+    <string name="player_aspect_ratio">Rasio Aspek</string>
+    <string name="player_audio_selector">Pilih Audio</string>
+    <string name="player_subtitle_selector">Pilih Subtitle</string>
+    <string name="player_pip">Picture-in-Picture</string>
+    <string name="player_lock_controls">Kunci Kontrol</string>
+    <string name="player_unlock_controls">Buka Kontrol</string>
+
+    <!-- Mode Aspek Rasio -->
+    <string name="resize_fit">Sesuai Layar (Fit)</string>
+    <string name="resize_fill">Regangkan (Fill)</string>
+    <string name="resize_zoom">Perbesar (Zoom)</string>
+    <string name="resize_fixed_width">Lebar Tetap</string>
+    <string name="resize_fixed_height">Tinggi Tetap</string>
+
+    <!-- Status & Mode Offline -->
+    <string name="status_loading_playlist">Memuat daftar saluran...</string>
+    <string name="status_authenticating">Menyiapkan sesi aman...</string>
+    <string name="status_buffering">Memuat siaran...</string>
+    <string name="status_offline_mode">Mode Offline (Cache Tersimpan)</string>
+
+    <!-- Pesan Kesalahan Generik (Tanpa membocorkan URL atau rahasia) -->
+    <string name="error_playlist_load_generic">Gagal memuat daftar saluran. Silakan periksa koneksi atau coba lagi.</string>
+    <string name="error_session_expired">Sesi telah berakhir. Memperbarui sesi otomatis...</string>
+    <string name="error_playback_generic">Siaran tidak dapat diputar saat ini. Menghubungkan ulang...</string>
+    <string name="error_drm_unsupported">Format keamanan video tidak didukung oleh perangkat keras ini.</string>
+
+    <!-- Dialog Pengaturan -->
+    <string name="settings_title">Pengaturan BatitongTV</string>
+    <string name="settings_autoplay_last_title">Putar Saluran Terakhir</string>
+    <string name="settings_autoplay_last_summary">Otomatis memutar saluran yang terakhir ditonton saat aplikasi dibuka.</string>
+    <string name="settings_boot_startup_title">Buka Otomatis Saat Booting</string>
+    <string name="settings_boot_startup_summary">Jalankan BatitongTV secara otomatis saat TV dinyalakan.</string>
+    <string name="settings_sort_title">Urutan Saluran</string>
+    <string name="settings_sort_default">Sesuai Daftar Siaran</string>
+    <string name="settings_sort_alphabetical">Berdasarkan Abjad (A-Z)</string>
+    <string name="settings_clear_cache_title">Bersihkan Cache Siaran</string>
+    <string name="settings_clear_cache_success">Cache siaran berhasil dibersihkan.</string>
+    <string name="settings_version_title">Versi Aplikasi</string>
+
+    <!-- Pencarian -->
+    <string name="search_hint">Cari nama atau nomor saluran...</string>
+    <string name="search_empty">Tidak ada saluran yang cocok dengan pencarian.</string>
+
+    <!-- Lisensi Open Source (§2 butir 3) -->
+    <string name="license_dialog_title">Lisensi Open Source</string>
+    <string name="license_attribution">Aplikasi ini menggunakan berbagai komponen open source berlisensi resmi Apache 2.0, MIT, dan BSD.</string>
+    <string name="btn_close">Tutup</string>
+    <string name="btn_retry">Coba Lagi</string>
+    <string name="btn_ok">OK</string>
+</resources>

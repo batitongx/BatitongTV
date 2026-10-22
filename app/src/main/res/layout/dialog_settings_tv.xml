@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="540dp"
+    android:layout_height="wrap_content"
+    android:background="@color/tv_surface"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/settings_title"
+        android:textColor="@color/tv_text_primary"
+        android:textSize="@dimen/tv_text_title"
+        android:textStyle="bold" />
+
+    <!-- Opsi 1: Autoplay Last Channel -->
+    <LinearLayout
+        android:id="@+id/rowAutoplayLast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/selector_item_tv"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_autoplay_last_title"
+                android:textColor="@color/tv_text_primary"
+                android:textSize="@dimen/tv_text_subtitle"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_autoplay_last_summary"
+                android:textColor="@color/tv_text_secondary"
+                android:textSize="@dimen/tv_text_caption" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchAutoplayLast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <!-- Opsi 2: Boot Startup -->
+    <LinearLayout
+        android:id="@+id/rowBootStartup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/selector_item_tv"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_boot_startup_title"
+                android:textColor="@color/tv_text_primary"
+                android:textSize="@dimen/tv_text_subtitle"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_boot_startup_summary"
+                android:textColor="@color/tv_text_secondary"
+                android:textSize="@dimen/tv_text_caption" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchBootStartup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="false" />
+    </LinearLayout>
+
+    <!-- Opsi 3: Pengurutan Abjad -->
+    <LinearLayout
+        android:id="@+id/rowSortAlphabetical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/selector_item_tv"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_sort_title"
+                android:textColor="@color/tv_text_primary"
+                android:textSize="@dimen/tv_text_subtitle"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCurrentSortMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_sort_default"
+                android:textColor="@color/brand_secondary"
+                android:textSize="@dimen/tv_text_caption" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Opsi 4: Bersihkan Cache Siaran -->
+    <Button
+        android:id="@+id/btnClearCache"
+        style="@style/Widget.BatitongTV.Button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/selector_item_tv"
+        android:text="@string/settings_clear_cache_title" />
+
+    <!-- Opsi 5: Lisensi Open Source -->
+    <Button
+        android:id="@+id/btnOpenLicenses"
+        style="@style/Widget.BatitongTV.Button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/selector_item_tv"
+        android:text="@string/nav_licenses" />
+
+    <!-- Versi Aplikasi -->
+    <TextView
+        android:id="@+id/tvAppVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="BatitongTV v1.0.0 (Build 35)"
+        android:textColor="@color/tv_text_tertiary"
+        android:textSize="@dimen/tv_text_caption" />
+
+</LinearLayout>
